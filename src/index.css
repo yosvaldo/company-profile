@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ocean-950: #061121;
+  --color-ocean-900: #0B1E36;
+  --color-ocean-800: #152C4A;
+  --color-ocean-700: #1D4477;
+
+  --color-luxury-gold: #DFCE72;
+  --color-luxury-gold-light: #EEDF9D;
+
+  --font-display: "Playfair Display", "Cinzel", serif;
+  --font-sans: "Montserrat", "Inter", sans-serif;
+}
+
+body {
+  background-color: #F8FAFC;
+  color: #1E293B;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
