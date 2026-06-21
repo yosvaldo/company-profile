@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Backendless from 'backendless';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
 export const CreateBlog: React.FC = () => {
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState('');
   const [content, setContent] = useState('');
   const editorRef = useRef<HTMLDivElement>(null);
   const quillInstance = useRef<Quill | null>(null);
@@ -21,15 +23,29 @@ export const CreateBlog: React.FC = () => {
           ]
         }
       });
-
       quillInstance.current.on('text-change', () => {
         setContent(quillInstance.current?.root.innerHTML || '');
       });
     }
   }, []);
 
-  const handlePublish = () => {
-    console.log("Publishing:", { title, content });
+  const handlePublish = async () => {
+    try {
+      await Backendless.Data.of('Blogs').save({
+        title: title,
+        image: image,
+        content: content
+      });
+
+      alert("Post published successfully!");
+      
+      setTitle('');
+      setImage('');
+      quillInstance.current?.setContents([]);
+    } catch (error) {
+      console.error("Publishing error:", error);
+      alert("Error: Check your console for details.");
+    }
   };
 
   return (
@@ -45,8 +61,16 @@ export const CreateBlog: React.FC = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full bg-[#0B1E36] border border-[#152C4A] text-white p-4 rounded-lg focus:ring-2 focus:ring-[#DFCE72] outline-none transition-all placeholder-slate-600"
+            className="w-full bg-[#0B1E36] border border-[#152C4A] text-white p-4 rounded-lg"
             placeholder="Post Title..."
+          />
+          
+          <input 
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className="w-full bg-[#0B1E36] border border-[#152C4A] text-white p-4 rounded-lg"
+            placeholder="Image URL..."
           />
 
           <div className="rounded-lg overflow-hidden border border-[#152C4A]">
@@ -55,7 +79,7 @@ export const CreateBlog: React.FC = () => {
 
           <button 
             onClick={handlePublish}
-            className="w-full bg-[#DFCE72] text-[#061121] font-bold py-4 rounded-lg uppercase tracking-widest hover:bg-[#EEDF9D] transition-all transform hover:scale-[1.01]"
+            className="w-full bg-[#DFCE72] text-[#061121] font-bold py-4 rounded-lg uppercase tracking-widest hover:bg-[#EEDF9D] transition-all"
           >
             Publish Post
           </button>

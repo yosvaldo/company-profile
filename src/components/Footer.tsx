@@ -1,61 +1,57 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-
-  const footerLinks = [
-    {
-      title: "Company",
-      links: ["About Us", "Leadership Team", "Careers", "Press Kit"]
-    },
-    {
-      title: "Solutions",
-      links: ["Commercial Network", "Supply Chain", "Distributor Portal", "Regional Expansion"]
-    },
-    {
-      title: "Legal",
-      links: ["Privacy Policy", "Terms of Service", "Compliance", "Contact"]
-    }
-  ];
+  const glassStyle = "bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-[32px] backdrop-saturate-[160%] border-t border-white/[0.08] shadow-[0_-24px_50px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)]";
 
   return (
-    <footer className="bg-ocean-950 border-t border-ocean-900/60 text-slate-400 font-sans text-xs tracking-wide">
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
+    <footer className={`${glassStyle} text-slate-400 py-16 px-6`}>
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-12">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 mb-12">
-          
-          <div className="lg:col-span-2 space-y-4">
-            <span className="font-display text-lg text-white tracking-widest uppercase">
-              BRAND<span className="text-luxury-gold">NAME</span>
-            </span>
-            <p className="text-slate-400 font-light leading-relaxed max-w-sm">
-              Delivering premium, high-performance commercial logistics, operational efficiency, and localized distributor solutions across Indonesia.
-            </p>
+        <div className="col-span-2 md:col-span-1 space-y-3">
+          <div className="flex items-center gap-3">
+            <img src="/transparent.png" alt="Logo" className="h-8 brightness-110" />
+            <span className="text-white font-semibold tracking-[0.1em]">PHENEX</span>
           </div>
-
-          {footerLinks.map((section, idx) => (
-            <div key={idx} className="space-y-4">
-              <h4 className="text-[10px] font-bold text-luxury-gold tracking-widest uppercase">
-                {section.title}
-              </h4>
-              <ul className="space-y-2.5 font-light">
-                {section.links.map((link, linkIdx) => (
-                  <li key={linkIdx}>
-                    <a 
-                      href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="hover:text-white transition-colors duration-200"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#DFCE72]/90">The Fishing Line of Champions</p>
+        </div>
+        
+        <div>
+          <h4 className="text-[10px] font-bold text-white uppercase mb-6 tracking-[0.2em]">Company</h4>
+          <ul className="text-[11px] space-y-3">
+            <li><Link to="/about" className="hover:text-[#DFCE72] transition-colors duration-300">About Us</Link></li>
+            <li><Link to="/teams" className="hover:text-[#DFCE72] transition-colors duration-300">Leadership Team</Link></li>
+          </ul>
         </div>
 
-        <div className="w-full h-[1px] bg-ocean-900/40 my-6" />
+        <div>
+          <h4 className="text-[10px] font-bold text-white uppercase mb-6 tracking-[0.2em]">Products & News</h4>
+          <ul className="text-[11px] space-y-3">
+            <li><Link to="/products" className="hover:text-[#DFCE72] transition-colors duration-300">Products Catalog</Link></li>
+            <li><Link to="/blogs" className="hover:text-[#DFCE72] transition-colors duration-300">Blog List</Link></li>
+          </ul>
+        </div>
 
-        <div className="flex flex-col md:flex-row
+        <div>
+          <h4 className="text-[10px] font-bold text-white uppercase mb-6 tracking-[0.2em]">Social</h4>
+          <ul className="text-[11px] space-y-3">
+            <li><a href="https://www.instagram.com/phenexfishingline/" target="_blank" rel="noreferrer" className="hover:text-[#DFCE72] transition-colors duration-300">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@phenexfishingline" target="_blank" rel="noreferrer" className="hover:text-[#DFCE72] transition-colors duration-300">Tiktok</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-[10px] font-bold text-white uppercase mb-6 tracking-[0.2em]">Marketplace</h4>
+          <ul className="text-[11px] space-y-3">
+            <li><a href="https://shopee.co.id/phenexfishingline" target="_blank" rel="noreferrer" className="hover:text-[#DFCE72] transition-colors duration-300">Shopee</a></li>
+            <li><a href="https://tokopedia.com/phenex-fishing-line" target="_blank" rel="noreferrer" className="hover:text-[#DFCE72] transition-colors duration-300">Tokopedia</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div className="text-center mt-16 text-[10px] text-slate-500 border-t border-white/[0.08] pt-8 tracking-[0.1em]">
+        © {new Date().getFullYear()} Phenex Fishing. All Rights Reserved.
+      </div>
+    </footer>
+  );
+};

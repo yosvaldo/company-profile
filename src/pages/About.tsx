@@ -12,6 +12,8 @@ interface CultureItem {
 }
 
 export const About: React.FC = () => {
+  const glassStyle = "bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-[32px] backdrop-saturate-[160%] border border-white/[0.08] shadow-[0_24px_50px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)]";
+  
   const storyParagraphs = [
     "Phenex was founded by passionate anglers who believed that premium fishing products should not be limited to premium prices.",
     "Recognizing the gap between quality and affordability in the market, the founders set out to develop fishing lines that deliver exceptional performance while remaining accessible to anglers of all levels.",
@@ -34,31 +36,29 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-ocean-950 text-white pt-28 pb-16 px-6">
+    <div className="min-h-screen bg-[#061121] text-white pt-28 pb-16 px-6">
       <div className="max-w-5xl mx-auto space-y-24">
         
-        <section className="text-center space-y-8">
+        <section className={`${glassStyle} p-12 rounded-3xl text-center space-y-8`}>
           <div>
-            <span className="text-xs font-sans font-bold tracking-widest text-luxury-gold uppercase">ESTABLISHED 2020</span>
-            <h1 className="font-display text-4xl tracking-widest text-white uppercase mt-2">
-              OUR <span className="text-luxury-gold">STORY</span>
+            <span className="text-[10px] font-sans font-bold tracking-[0.3em] text-[#DFCE72] uppercase">Since 2020</span>
+            <h1 className="font-serif italic text-5xl text-white mt-4">
+              Our Story
             </h1>
-            <div className="w-12 h-[1px] bg-luxury-gold/50 mx-auto mt-4" />
+            <div className="w-16 h-[1px] bg-[#DFCE72]/40 mx-auto mt-6" />
           </div>
           
           <div className="max-w-3xl mx-auto space-y-6">
             {storyParagraphs.map((paragraph, idx) => (
-              <p key={idx} className="text-xs md:text-sm text-slate-300 font-sans font-light leading-relaxed tracking-wide">
+              <p key={idx} className="text-sm text-slate-200 font-sans font-light leading-loose tracking-wide">
                 {paragraph}
               </p>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-ocean-900 pt-16">
-          <h2 className="font-display text-xl uppercase tracking-widest text-center mb-12">
-            COMPANY <span className="text-luxury-gold">MILESTONES</span>
-          </h2>
+        <section className="pt-8">
+          <h2 className="font-serif text-3xl text-center mb-12 text-[#DFCE72]">Company Milestones</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {milestones.map((milestone, idx) => (
               <motion.div
@@ -66,12 +66,12 @@ export const About: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.1 }}
-                className="bg-ocean-900/20 border border-ocean-800/60 rounded-xl p-6 text-center space-y-2 group hover:border-luxury-gold/20 transition-colors"
+                className={`${glassStyle} rounded-2xl p-8 text-center space-y-3 hover:bg-white/10 transition-all duration-300`}
               >
-                <div className="font-display text-base text-luxury-gold tracking-wider">
+                <div className="font-bold text-lg text-[#DFCE72] tracking-wider">
                   {milestone.date}
                 </div>
-                <p className="text-xs text-slate-400 font-sans font-light tracking-wide leading-relaxed">
+                <p className="text-xs text-slate-300 font-sans font-light tracking-wide leading-relaxed">
                   {milestone.title}
                 </p>
               </motion.div>
@@ -79,22 +79,20 @@ export const About: React.FC = () => {
           </div>
         </section>
 
-        <section className="border-t border-ocean-900 pt-16">
-          <h2 className="font-display text-xl uppercase tracking-widest text-center mb-12">
-            OUR <span className="text-luxury-gold">CULTURE</span>
-          </h2>
+        <section className="pt-8">
+          <h2 className="font-serif text-3xl text-center mb-12 text-[#DFCE72]">Our Culture</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {cultureList.map((culture, idx) => (
               <div 
                 key={idx} 
-                className="bg-ocean-900/30 border border-ocean-800/50 rounded-xl p-6 flex flex-col justify-between hover:border-luxury-gold/10 transition-all duration-300"
+                className={`${glassStyle} rounded-2xl p-8 flex flex-col justify-between hover:bg-white/10 transition-all duration-300`}
               >
-                <div className="space-y-2">
-                  <h3 className="font-display text-sm text-white tracking-wider uppercase flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold" />
+                <div className="space-y-4">
+                  <h3 className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#DFCE72]" />
                     {culture.title}
                   </h3>
-                  <p className="text-xs text-slate-400 font-sans leading-relaxed tracking-wide font-light pl-3.5">
+                  <p className="text-xs text-slate-300 font-sans leading-relaxed tracking-wide font-light pl-4.5 border-l border-[#DFCE72]/20">
                     {culture.desc}
                   </p>
                 </div>
