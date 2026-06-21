@@ -29,17 +29,20 @@ export const BlogList: React.FC = () => {
 
   const fetchBlogs = () => {
     setLoading(true);
-    Backendless.Data.of('Blogs').find<BlogArticle>({
-      options: { sortBy: ['published DESC'] }
-    })
-    .then((data) => {
-      setBlogs(data);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Error fetching articles:", err);
-      setLoading(false);
-    });
+    
+    const queryBuilder = Backendless.DataQueryBuilder.create();
+    
+    queryBuilder.setSortBy(['published DESC']);
+
+    Backendless.Data.of('Blogs').find<BlogArticle>(queryBuilder)
+      .then((data) => {
+        setBlogs(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching articles:", err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => { fetchBlogs(); }, []);
