@@ -7,7 +7,7 @@ interface EditorProps {
   onChange: (value: string) => void;
 }
 
-export const QuillEditor: React.FC<EditorProps> = ({ _value, onChange }) => {
+export const QuillEditor: React.FC<EditorProps> = ({ value: _value, onChange }) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const quillInstance = useRef<Quill | null>(null);
 
