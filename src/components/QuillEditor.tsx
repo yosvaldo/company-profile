@@ -7,9 +7,15 @@ interface EditorProps {
   onChange: (value: string) => void;
 }
 
-export const QuillEditor: React.FC<EditorProps> = ({ value: _value, onChange }) => {
+export const QuillEditor: React.FC<EditorProps> = ({ value, onChange }) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const quillInstance = useRef<Quill | null>(null);
+  const onChangeRef = useRef(onChange);
+  const initialValueRef = useRef(value);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   useEffect(() => {
     if (editorRef.current && !quillInstance.current) {
@@ -19,16 +25,26 @@ export const QuillEditor: React.FC<EditorProps> = ({ value: _value, onChange }) 
           toolbar: [
             [{ header: [1, 2, false] }],
             ['bold', 'italic', 'underline'],
-            ['list', 'bullet']
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['clean']
           ]
         }
       });
 
+      if (initialValueRef.current) {
+        quillInstance.current.root.innerHTML = initialValueRef.current;
+      }
+
       quillInstance.current.on('text-change', () => {
-        onChange(quillInstance.current?.root.innerHTML || '');
+        const html = quillInstance.current?.root.innerHTML || '';
+        onChangeRef.current(html);
       });
     }
-  }, [onChange]);
+  }, []);
 
-  return <div ref={editorRef} className="bg-white min-h-[300px]" />;
+  return (
+    <div className="bg-white text-slate-900 rounded-xl overflow-hidden">
+      <div ref={editorRef} className="min-h-62.5" />
+    </div>
+  );
 };

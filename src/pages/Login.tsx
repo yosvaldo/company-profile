@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -12,35 +13,48 @@ export const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       await login(email, password);
       navigate('/create-blog');
-    } catch (err) { alert('Invalid credentials'); }
+    } catch (err) { 
+      const errMsg = err instanceof Error ? err.message : "Invalid admin or credentials routing info";
+      alert(errMsg); 
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#061121] flex items-center justify-center p-6">
-      <div className={`w-full max-w-[360px] ${glassStyle} p-10 rounded-[28px]`}>
-        <div className="text-center mb-10">
-          <img src="/transparent.png" alt="Logo" className="w-12 mx-auto mb-6 brightness-110" />
-          <h2 className="text-sm text-white font-semibold tracking-[0.2em] uppercase">Login Portal</h2>
+    <div className="min-h-screen bg-[#020813] flex items-center justify-center p-4">
+      <div className={`w-full max-w-95 ${glassStyle} p-8 sm:p-10 rounded-[28px]`}>
+        <div className="text-center mb-8">
+          <div className="w-12 h-12 bg-linear-to-b from-luxury-gold to-yellow-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+            <span className="text-[#020813] font-bold text-lg font-serif">P</span>
+          </div>
+          <h2 className="text-xs text-white font-bold tracking-[0.2em] uppercase">Control Portal</h2>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input 
             type="email" 
-            placeholder="Email Address" 
+            required
+            placeholder="Identity Email" 
             onChange={(e) => setEmail(e.target.value)} 
-            className="w-full bg-white/[0.03] p-4 text-[12px] text-white border border-white/[0.08] rounded-2xl outline-none focus:border-[#DFCE72]/50 transition-all placeholder-slate-500" 
+            className="w-full bg-white/3 p-4 text-[11px] text-white border border-white/8 rounded-xl outline-none focus:border-luxury-gold/50 transition-all placeholder-slate-500" 
           />
           <input 
             type="password" 
-            placeholder="Password" 
+            required
+            placeholder="Security Access Token" 
             onChange={(e) => setPassword(e.target.value)} 
-            className="w-full bg-white/[0.03] p-4 text-[12px] text-white border border-white/[0.08] rounded-2xl outline-none focus:border-[#DFCE72]/50 transition-all placeholder-slate-500" 
+            className="w-full bg-white/3 p-4 text-[11px] text-white border border-white/8 rounded-xl outline-none focus:border-luxury-gold/50 transition-all placeholder-slate-500" 
           />
-          <button className="w-full bg-[#DFCE72] text-[#061121] font-semibold py-4 rounded-2xl uppercase tracking-[0.2em] text-[11px] hover:bg-[#c9b863] transition-all">
-            Sign In
+          <button 
+            disabled={submitting}
+            className="w-full bg-luxury-gold text-[#020813] font-bold py-4 rounded-xl uppercase tracking-[0.2em] text-[10px] hover:bg-[#eedf9d] transition-all disabled:opacity-50"
+          >
+            {submitting ? 'Verifying...' : 'Authenticate Access'}
           </button>
         </form>
       </div>

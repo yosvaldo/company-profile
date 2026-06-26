@@ -1,34 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const { user, logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+
   const isActive = (path: string) => location.pathname === path;
 
-  const glassStyle = "bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-[32px] backdrop-saturate-[160%] border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]";
+  const liquidGlassStyle = "bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-[40px] backdrop-saturate-[180%] border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]";
 
   const linkClass = (path: string) => 
-    `text-[10px] font-semibold tracking-[0.2em] uppercase transition-all duration-300 ${
-      isActive(path) ? 'text-[#DFCE72]' : 'text-slate-300 hover:text-white'
+    `text-[10px] font-bold tracking-[0.25em] uppercase transition-all duration-300 py-2 ${
+      isActive(path) ? 'text-luxury-gold' : 'text-slate-300 hover:text-white'
     }`;
 
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Products', path: '/products' },
+    { name: 'Teams', path: '/teams' },
+    { name: 'Blogs', path: '/blogs' },
+  ];
+
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 ${glassStyle} px-6 py-5`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 ${liquidGlassStyle} px-4 sm:px-8 py-3 transition-all duration-300`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
-        <Link to="/" className="flex items-center gap-3 text-white font-semibold tracking-[0.1em] text-sm">
-          <img src="/transparent.png" alt="Logo" className="h-7 brightness-110" />
-          <span>PHENEX<span className="text-[#DFCE72] ml-1">FISHING</span></span>
+        <Link to="/" className="flex items-center gap-3 text-white font-black tracking-[0.15em] text-xs sm:text-sm">
+          <img 
+            src="/logo-nav.webp" 
+            alt="Phenex Logo" 
+            className="h-9 w-auto object-contain brightness-110" 
+            loading="eager"
+          />
+          <span>PHENEX<span className="text-luxury-gold ml-1">FISHING</span></span>
         </Link>
         
-        <div className="flex items-center gap-8">
-          <Link to="/" className={linkClass('/')}>Home</Link>
-          <Link to="/about" className={linkClass('/about')}>About</Link>
-          <Link to="/products" className={linkClass('/products')}>Products</Link>
-          <Link to="/teams" className={linkClass('/teams')}>Teams</Link>
-          <Link to="/blogs" className={linkClass('/blogs')}>Blogs</Link>
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link key={link.path} to={link.path} className={linkClass(link.path)}>
+              {link.name}
+            </Link>
+          ))}
           
           {user && (
             <Link to="/create-blog" className={linkClass('/create-blog')}>
@@ -39,7 +55,7 @@ export const Navbar: React.FC = () => {
           {user ? (
             <button 
               onClick={logout} 
-              className="text-[10px] uppercase tracking-[0.2em] text-red-500 hover:text-red-400 transition-colors duration-300 font-semibold"
+              className="text-[10px] uppercase tracking-[0.25em] text-red-500 hover:text-red-400 transition-colors duration-300 font-bold"
             >
               Logout
             </button>
@@ -47,7 +63,51 @@ export const Navbar: React.FC = () => {
             <Link to="/login" className={linkClass('/login')}>Login</Link>
           )}
         </div>
+
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-slate-300 hover:text-white transition-colors p-1"
+          aria-label="Toggle Menu"
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
+
+      {isOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#020813]/95 border-b border-white/8 backdrop-blur-2xl flex flex-col p-6 space-y-4 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.path} 
+              to={link.path} 
+              onClick={() => setIsOpen(false)}
+              className={linkClass(link.path)}
+            >
+              {link.name}
+            </Link>
+          ))}
+          
+          {user && (
+            <Link 
+              to="/create-blog" 
+              onClick={() => setIsOpen(false)}
+              className={linkClass('/create-blog')}
+            >
+              Create Blog
+            </Link>
+          )}
+          
+          {user ? (
+            <button 
+              onClick={() => { logout(); setIsOpen(false); }} 
+              className="text-[10px] text-left uppercase tracking-[0.25em] text-red-500 font-bold pt-2"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" onClick={() => setIsOpen(false)} className={linkClass('/login')}>Login</Link>
+          )}
+        </div>
+      )}
     </nav>
   );
 };
