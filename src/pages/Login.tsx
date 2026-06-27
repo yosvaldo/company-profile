@@ -29,32 +29,34 @@ export const Login: React.FC = () => {
     <div className="min-h-screen bg-[#020813] flex items-center justify-center p-4">
       <div className={`w-full max-w-95 ${glassStyle} p-8 sm:p-10 rounded-[28px]`}>
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-linear-to-b from-luxury-gold to-yellow-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-lg">
-            <span className="text-[#020813] font-bold text-lg font-serif">P</span>
-          </div>
-          <h2 className="text-xs text-white font-bold tracking-[0.2em] uppercase">Control Portal</h2>
+          <img 
+            src="/favicon.png" 
+            alt="Phenex Logo" 
+            className="w-12 h-12 object-contain mx-auto mb-4 filter drop-shadow-[0_0_8px_rgba(223,206,114,0.3)]" 
+          />
+          <h2 className="text-xs text-white font-bold tracking-[0.2em] uppercase">PRIVILEGE ANGLER</h2>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <input 
             type="email" 
             required
-            placeholder="Identity Email" 
+            placeholder="Email" 
             onChange={(e) => setEmail(e.target.value)} 
             className="w-full bg-white/3 p-4 text-[11px] text-white border border-white/8 rounded-xl outline-none focus:border-luxury-gold/50 transition-all placeholder-slate-500" 
           />
           <input 
             type="password" 
             required
-            placeholder="Security Access Token" 
+            placeholder="Password" 
             onChange={(e) => setPassword(e.target.value)} 
             className="w-full bg-white/3 p-4 text-[11px] text-white border border-white/8 rounded-xl outline-none focus:border-luxury-gold/50 transition-all placeholder-slate-500" 
           />
           <button 
             disabled={submitting}
-            className="w-full bg-luxury-gold text-[#020813] font-bold py-4 rounded-xl uppercase tracking-[0.2em] text-[10px] hover:bg-[#eedf9d] transition-all disabled:opacity-50"
+            className="w-full bg-luxury-gold text-[#020813] font-bold py-4 rounded-xl uppercase tracking-[0.2em] text-[10px] hover:bg-[#eedf9d] transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {submitting ? 'Verifying...' : 'Authenticate Access'}
+            {submitting ? 'Verifying...' : 'LOGIN'}
           </button>
         </form>
       </div>

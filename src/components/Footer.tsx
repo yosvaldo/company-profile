@@ -87,7 +87,7 @@ export const Footer: React.FC = () => {
       </div>
       
       <div className="text-center mt-20 text-[9px] text-slate-500 border-t border-white/6 pt-8 tracking-[0.2em] uppercase font-medium">
-        © {new Date().getFullYear()} Phenex Fishing.
+        © {new Date().getFullYear()} Phenex Fishing
       </div>
     </footer>
   );

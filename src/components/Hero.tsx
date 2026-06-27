@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative flex min-h-screen items-center justify-start overflow-hidden bg-[#020813] pt-16">
+    <section className="relative flex min-h-screen items-center justify-start overflow-hidden bg-[#020813]">
       <div className="absolute inset-0 z-0">
         <img 
           src="/banner.webp" 

@@ -2,48 +2,42 @@ import React, { useEffect, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
-interface EditorProps {
+interface QuillEditorProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (content: string) => void;
 }
 
-export const QuillEditor: React.FC<EditorProps> = ({ value, onChange }) => {
+export const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
   const editorRef = useRef<HTMLDivElement>(null);
-  const quillInstance = useRef<Quill | null>(null);
-  const onChangeRef = useRef(onChange);
-  const initialValueRef = useRef(value);
+  const quillRef = useRef<Quill | null>(null);
 
   useEffect(() => {
-    onChangeRef.current = onChange;
-  }, [onChange]);
-
-  useEffect(() => {
-    if (editorRef.current && !quillInstance.current) {
-      quillInstance.current = new Quill(editorRef.current, {
+    if (editorRef.current && !quillRef.current) {
+      quillRef.current = new Quill(editorRef.current, {
         theme: 'snow',
         modules: {
           toolbar: [
-            [{ header: [1, 2, false] }],
             ['bold', 'italic', 'underline'],
             [{ list: 'ordered' }, { list: 'bullet' }],
-            ['clean']
-          ]
+            ['clean'],
+          ],
+        },
+      });
+
+      quillRef.current.on('text-change', () => {
+        if (quillRef.current) {
+          onChange(quillRef.current.root.innerHTML);
         }
       });
-
-      if (initialValueRef.current) {
-        quillInstance.current.root.innerHTML = initialValueRef.current;
-      }
-
-      quillInstance.current.on('text-change', () => {
-        const html = quillInstance.current?.root.innerHTML || '';
-        onChangeRef.current(html);
-      });
     }
-  }, []);
+
+    if (quillRef.current && quillRef.current.root.innerHTML !== value) {
+      quillRef.current.root.innerHTML = value;
+    }
+  }, [value, onChange]);
 
   return (
-    <div className="bg-white text-slate-900 rounded-xl overflow-hidden">
+    <div className="quill-editor rounded-xl overflow-hidden">
       <div ref={editorRef} className="min-h-62.5" />
     </div>
   );

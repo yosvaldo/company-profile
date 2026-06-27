@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
           {user ? (
             <button 
               onClick={logout} 
-              className="text-[10px] uppercase tracking-[0.25em] text-red-500 hover:text-red-400 transition-colors duration-300 font-bold"
+              className="cursor-pointer text-[10px] uppercase tracking-[0.25em] text-red-500 hover:text-red-400 transition-colors duration-300 font-bold"
             >
               Logout
             </button>
@@ -99,7 +99,7 @@ export const Navbar: React.FC = () => {
           {user ? (
             <button 
               onClick={() => { logout(); setIsOpen(false); }} 
-              className="text-[10px] text-left uppercase tracking-[0.25em] text-red-500 font-bold pt-2"
+              className="cursor-pointer text-[10px] text-left uppercase tracking-[0.25em] text-red-500 font-bold pt-2"
             >
               Logout
             </button>
