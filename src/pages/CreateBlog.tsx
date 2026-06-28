@@ -22,7 +22,10 @@ export const CreateBlog: React.FC = () => {
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required("Title is required"),
-    image: Yup.string().trim().required("Image URL is required"),
+    image: Yup.string()
+      .trim()
+      .url("Please enter a valid URL (e.g., https://example.com/image.jpg)")
+      .required("Image URL is required"),
     content: Yup.string()
       .test('has-content', "Content can't be empty", (val: string | undefined) => {
         const stripped = (val || '').replace(/<[^>]*>/g, '').trim();

@@ -26,6 +26,8 @@ interface FormValues {
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ article, index, isAdmin, glassStyle, onReadMore, onEdit, onDelete }) => {
+  const [imgSrc, setImgSrc] = useState<string>(article.image || '/placeholder.webp');
+
   const formattedDate = article.published 
     ? new Date(article.published).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     : 'Recent';
@@ -42,10 +44,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ article, index, isAdmin, glassStyle
     >
       <div className="aspect-16/10 w-full overflow-hidden relative border-b border-white/8 bg-black/40">
         <img 
-          src={article.image} 
+          src={imgSrc} 
           alt={article.title} 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
           loading="lazy"
+          onError={() => {
+            if (imgSrc !== '/placeholder.webp') {
+              setImgSrc('/placeholder.webp');
+            }
+          }}
         />
         
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
@@ -147,7 +154,7 @@ export const BlogList: React.FC = () => {
 
   const validationSchema = Yup.object({
     title: Yup.string().trim().required("Title is required"),
-    image: Yup.string().trim().required("Image URL is required"),
+    image: Yup.string().trim().url("Please enter a valid URL").required("Image URL is required"),
     content: Yup.string()
       .test('has-content', "Content can't be empty", (val: string | undefined) => {
         const stripped = (val || '').replace(/<[^>]*>/g, '').trim();
@@ -211,6 +218,10 @@ export const BlogList: React.FC = () => {
       content: article.content,
       tags: article.tags || 'Premium',
     });
+  };
+
+  const windowSafeCloseModal = () => {
+    setSelectedBlog(null);
   };
 
   const filteredBlogs = blogs?.filter(blog => {
@@ -284,9 +295,18 @@ export const BlogList: React.FC = () => {
               exit={{ opacity: 0, scale: 0.98 }}
               className={`${glassStyle} w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-[28px] p-6 sm:p-10 relative`}
             >
-              <button onClick={() => setSelectedBlog(null)} className="cursor-pointer absolute top-6 right-6 text-white/50 hover:text-white text-sm transition-colors z-20">✕</button>
+              <button onClick={windowSafeCloseModal} className="cursor-pointer absolute top-6 right-6 text-white/50 hover:text-white text-sm transition-colors z-20">✕</button>
               <div className="aspect-21/9 w-full overflow-hidden rounded-2xl mb-6 bg-black/40">
-                <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-full object-cover" />
+                <img 
+                  src={selectedBlog.image || '/placeholder.webp'} 
+                  alt={selectedBlog.title} 
+                  className="w-full h-full object-cover" 
+                  onError={(e) => {
+                    if (e.currentTarget.src !== window.location.origin + '/placeholder.webp') {
+                      e.currentTarget.src = '/placeholder.webp';
+                    }
+                  }}
+                />
               </div>
               <h2 className="text-xl sm:text-2xl font-serif tracking-tight text-white mb-4 uppercase">{selectedBlog.title}</h2>
               <div 
