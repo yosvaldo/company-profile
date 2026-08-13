@@ -1,6 +1,6 @@
 import React from 'react';
 import { History } from '../components/History';
-import { Cofounder } from '../components/Cofounder';
+//import { Cofounder } from '../components/Cofounder';
 import { Culture } from '../components/Culture';
 
 export const About: React.FC = () => {
@@ -12,7 +12,7 @@ export const About: React.FC = () => {
         
         <History glassStyle={glassStyle} />
 
-        {/* <Cofounder glassStyle={glassStyle} /> */}
+//        <Cofounder glassStyle={glassStyle} />
 
         <Culture glassStyle={glassStyle} />
 

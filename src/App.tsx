@@ -8,8 +8,8 @@ import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Products } from './pages/Products';
-import { Teams } from './pages/Teams';
-import { BlogList } from './pages/BlogList';
+// import { Teams } from './pages/Teams';
+// import { BlogList } from './pages/BlogList';
 import { CreateBlog } from './pages/CreateBlog';
 import { Login } from './pages/Login';
 
@@ -24,8 +24,8 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/products" element={<Products />} />
-              {/* <Route path="/teams" element={<Teams />} /> */}
-              {/* <Route path="/blogs" element={<BlogList />} /> */}
+//              <Route path="/teams" element={<Teams />} />
+//              <Route path="/blogs" element={<BlogList />} />
 
               <Route element={<PublicLayout />}>
                 <Route path="/login" element={<Login />} />
