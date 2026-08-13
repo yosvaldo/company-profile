@@ -12,7 +12,7 @@ export const About: React.FC = () => {
         
         <History glassStyle={glassStyle} />
 
-//        <Cofounder glassStyle={glassStyle} />
+        {/*<Cofounder glassStyle={glassStyle} />*/}
 
         <Culture glassStyle={glassStyle} />
 
