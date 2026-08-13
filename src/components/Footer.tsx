@@ -9,14 +9,14 @@ export const Footer: React.FC = () => {
       title: "Company",
       links: [
         { label: "About Us", path: "/about", external: false },
-        { label: "Leadership Team", path: "/teams", external: false }
+//        { label: "Leadership Team", path: "/teams", external: false }
       ]
     },
     {
       title: "Products & News",
       links: [
         { label: "Products Catalog", path: "/products", external: false },
-        { label: "Blog List", path: "/blogs", external: false }
+//        { label: "Blog List", path: "/blogs", external: false }
       ]
     },
     {
