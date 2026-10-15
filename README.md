@@ -19,7 +19,7 @@ A modern, high-conversion web application built for Phenex Fishing Line. This pr
 
 * **Core:** React 18, TypeScript, Vite
 * **Routing:** React Router v6
-* **Styling:** Tailwind CSS, `clsx` + `tailwind-merge`
+* **Styling:** Tailwind CSS, clsx + tailwind-merge
 * **Animations:** Framer Motion
 * **Backend/BaaS:** Backendless (Auth & Database)
 * **Icons:** Lucide React
