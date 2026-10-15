@@ -24,19 +24,6 @@ A modern, high-conversion web application built for Phenex Fishing Line. This pr
 * **Backend/BaaS:** Backendless (Auth & Database)
 * **Icons:** Lucide React
 
-## 📂 Project Architecture
-
-The application is structured for scalability and maintainability:
-src/
-├── **components/**   # Reusable, presentation-focused UI components (Hero, Cards, Navigation)
-├── **configs/**      # Third-party integrations and environmental setups
-├── **context/**      # Global state management (AuthContext)
-├── **layouts/**      # Route wrappers for Public and Protected access control
-├── **lib/**          # Utility functions (e.g., Tailwind class merging)
-├── **pages/**        # Top-level route components
-└── **App.tsx**       # Root component and router configuration
-
-
 Special thanks for Phenex Fishing which can be reached thru:
 -**Instagram**: https://www.instagram.com/phenexfishingline/
 -**Tiktok**: https://www.tiktok.com/@phenexfishingline
